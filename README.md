@@ -6,8 +6,8 @@ WIndicator.swift、WActivityIndicator.swift、WIndicatorText.swift
 
 用法如下
 用法一：
-        var indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
 
+        var indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
         dispatch_async(dispatch_get_global_queue(0,0), { () -> Void in
             sleep(3)
 
@@ -17,6 +17,8 @@ WIndicator.swift、WActivityIndicator.swift、WIndicatorText.swift
         })
         
 用法二：
+        
+        
         var indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
         indicator.text = "swift比用法一多了一行文字"
         dispatch_async(dispatch_get_global_queue(0,0), { () -> Void in
