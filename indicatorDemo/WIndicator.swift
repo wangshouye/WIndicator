@@ -23,8 +23,8 @@ class WIndicator:UIView {
         var indicatorView: UIView?
         
         for tempView in view.subviews {
-            if (tempView as? WIndicator != nil) {
-                indicatorView = tempView as WIndicator
+            if (tempView as? WActivityIndicator != nil) {
+                indicatorView = tempView as WActivityIndicator
                 break
             }
         }
