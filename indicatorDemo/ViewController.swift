@@ -15,8 +15,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
 //        用法 一
-//        var indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
-//        indicator.text = "swift 变态啊，好繁琐  不会啊啊啊啊啊啊啊啊啊"
+//        let indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
+//        indicator.title = "swift 变态啊，好繁琐  不会啊啊啊啊啊啊啊啊啊"
 //
 //        dispatch_async(dispatch_get_global_queue(0,0), { () -> Void in
 //            sleep(3)
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
 //        })
 
 //        用法 二
-//        var indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
+//        WIndicator.showIndicatorAddedTo(self.view, animation: true)
 //
 //        dispatch_async(dispatch_get_global_queue(0,0), { () -> Void in
 //            sleep(3)
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
 //        })
 
 //        用法 三
-//        var indicator = WIndicator.showMsgInView(self.view, text: "浮动窗口测试啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊", timeOut: 1.5)
+        WIndicator.showMsgInView(self.view, text: "浮动窗口测试啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊", timeOut: 1.5)
 
 
     }

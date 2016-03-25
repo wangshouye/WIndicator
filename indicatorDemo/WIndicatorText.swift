@@ -8,19 +8,22 @@
 
 import UIKit
 
+let TagWIndicatorText       = 99999
+
 
 class WIndicatorText: UIView {
     
-    private let margin:Float = 20.0
-    private let maxWidth:Float = Float(UIScreen.mainScreen().bounds.size.width) - 2 * 20
+    private let margin:CGFloat                  = 20.0
+    private let maxWidth:CGFloat                = UIScreen.mainScreen().bounds.size.width - 2 * 20
 
-    private let labelFontSize:CGFloat = 16.0
-    private var bgView: UIView?
-    private var label: UILabel?
+    private let labelFontSize:CGFloat           = 16.0
+    
+    private var bgView                          = UIView()
+    private var label                           = UILabel()
     
     private var labelText: String = ""
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -30,17 +33,18 @@ class WIndicatorText: UIView {
         self.backgroundColor = UIColor.clearColor()
 
         self.labelText = text
+        self.tag = TagWIndicatorText
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserverForName(UIDeviceOrientationDidChangeNotification, object:nil, queue:NSOperationQueue.mainQueue(), usingBlock:{notification in
             
-            self.frame =  self.superview!.bounds
+            self.frame = self.superview!.bounds
             self.setNeedsDisplay()
         })
         
 
-        var time = UInt64(interval) * NSEC_PER_SEC
-        var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(time));
+        let time = UInt64(interval) * NSEC_PER_SEC
+        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(time));
 
         dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
             
@@ -55,52 +59,51 @@ class WIndicatorText: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        bgView = UIView()
-        bgView?.backgroundColor = UIColor.blackColor()
-        bgView?.layer.cornerRadius = 10.0
-        bgView?.layer.masksToBounds = true
-        self.addSubview(bgView!)
+        bgView.backgroundColor      = UIColor.blackColor()
+        bgView.layer.cornerRadius   = 10.0
+        bgView.layer.masksToBounds  = true
         
-        label = UILabel()
-        label!.font = UIFont.systemFontOfSize(labelFontSize)
-        label!.adjustsFontSizeToFitWidth = false
-        label!.textAlignment = NSTextAlignment.Center
-        label!.opaque = false
-        label!.backgroundColor = UIColor.clearColor()
-        label!.textColor = UIColor.whiteColor()
-        label!.numberOfLines = 0
-        bgView!.addSubview(label!)
+        self.addSubview(bgView)
+        
+        label.font                      = UIFont.systemFontOfSize(labelFontSize)
+        label.adjustsFontSizeToFitWidth = false
+        label.textAlignment             = .Center
+        label.opaque                    = false
+        label.backgroundColor           = UIColor.clearColor()
+        label.textColor                 = UIColor.whiteColor()
+        label.numberOfLines             = 0
+        
+        bgView.addSubview(label)
     }
     
     override func layoutSubviews () {
         
-        var frame = self.bounds
-        var tempString = NSString(string: self.labelText)
+        let frame = self.bounds
+        let tempString = NSString(string: self.labelText)
 
-        var maxLabelSize = CGSize(width: 200, height: Int.max)
+        let maxLabelSize = CGSize(width: 200, height: Int.max)
 
         let rect:CGRect = tempString.boundingRectWithSize(maxLabelSize,
-            options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-            attributes: [NSFontAttributeName:UIFont.systemFontOfSize(labelFontSize)],
-            context: nil)
+                                                          options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+                                                          attributes: [NSFontAttributeName:UIFont.systemFontOfSize(labelFontSize)],
+                                                          context: nil)
 
-        let stringWidth:Float = Float(rect.size.width)
-        let stringHeight:Float = Float(rect.size.height)
+        let stringWidth     = rect.size.width
+        let stringHeight    = rect.size.height
 
-        var bgViewWidth = stringWidth + 2 * margin
-        var bgViewHeight = stringHeight + 2 * margin
-        var bgViewX:Float = (Float(frame.size.width) - ( bgViewWidth )) / 2
-        var bgViewY:Float = (Float(frame.size.height) - (bgViewHeight )) / 2
+        let bgViewWidth     = stringWidth + 2 * margin
+        let bgViewHeight    = stringHeight + 2 * margin
+        let bgViewX         = (frame.size.width - bgViewWidth ) / 2
+        let bgViewY         = (frame.size.height - bgViewHeight ) / 2
         
-        var labelX:Float = (bgViewWidth - stringWidth)/2
-        var labelY:Float = (bgViewHeight - stringHeight)/2
+        let labelX          = (bgViewWidth - stringWidth)/2
+        let labelY          = (bgViewHeight - stringHeight)/2
 
-        bgView!.frame = CGRect(x: CGFloat(bgViewX), y: CGFloat(bgViewY), width: CGFloat(bgViewWidth), height: CGFloat(bgViewHeight))
-        label!.frame = CGRect(x: CGFloat(labelX), y: CGFloat(labelY), width: CGFloat(stringWidth), height: CGFloat(stringHeight))
+        bgView.frame        = CGRect(x: bgViewX, y: bgViewY, width: bgViewWidth, height: bgViewHeight)
+        label.frame         = CGRect(x: labelX, y: labelY, width: stringWidth, height: stringHeight)
         
-        label!.text = labelText
+        label.text          = labelText
     }
-
 }
 
 

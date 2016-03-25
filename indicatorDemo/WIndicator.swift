@@ -10,8 +10,18 @@ import UIKit
 
 class WIndicator:UIView {
     
-   class func showIndicatorAddedTo(view:UIView, animation:Bool) -> WActivityIndicator {
-        var resultView = WActivityIndicator(view: view)
+    class func showIndicatorAddedTo(view:UIView, animation:Bool) -> WActivityIndicator {
+        
+        if let tmpView = view.viewWithTag(TagWIndicatorText) {
+            
+            tmpView.alpha = 0.0
+            
+            tmpView.removeFromSuperview()
+        }
+        
+        removeIndicatorFrom(view, animation: false)
+        
+        let resultView = WActivityIndicator(view: view)
         view.addSubview(resultView)
         
         resultView.show(animation)
@@ -20,27 +30,36 @@ class WIndicator:UIView {
     }
     
     class func removeIndicatorFrom(view:UIView, animation:Bool) {
-        var indicatorView: UIView?
+        
+        var indicatorView: WActivityIndicator?
         
         for tempView in view.subviews {
-            if (tempView as? WActivityIndicator != nil) {
-                indicatorView = tempView as WActivityIndicator
+            if tempView is WActivityIndicator {
+                indicatorView = (tempView as! WActivityIndicator)
                 break
             }
         }
         
-        if ( indicatorView != nil ) {
-            (indicatorView as WActivityIndicator).hideAndRemove(true)
-            indicatorView!.removeFromSuperview()
+        if let view = indicatorView {
+            view.hideAndRemove(true)
+            view.removeFromSuperview()
         }
     }
-
     
     class func showMsgInView(view: UIView, text:String, timeOut interval:NSTimeInterval) -> WIndicatorText {
-
-        var indicatorTextView = WIndicatorText(view: view, text: text, timeOut: interval)
-        view.addSubview(indicatorTextView)
         
+        if let tmpView = view.viewWithTag(TagWIndicatorText) {
+            
+            tmpView.alpha = 0.0
+            
+            tmpView.removeFromSuperview()
+        }
+        
+        removeIndicatorFrom(view, animation: false)
+        
+        
+        let indicatorTextView = WIndicatorText(view: view, text: text, timeOut: interval)
+        view.addSubview(indicatorTextView)
         
         return indicatorTextView
     }
