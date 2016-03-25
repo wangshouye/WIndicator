@@ -1,5 +1,12 @@
-WIndicator
-==========
+### WIndicator
+
+
+
+2016-3-25 修改项：
+
+* 优化代码
+* 将WIndicator方法text替换成title
+
 
 模仿MBProgressHUD 结合自己的用途 用swift 编码了一套功能一样的控件, 将这三个文件添加到工程中就可以了
 WIndicator.swift、WActivityIndicator.swift、WIndicatorText.swift
@@ -20,7 +27,7 @@ WIndicator.swift、WActivityIndicator.swift、WIndicatorText.swift
         
         
         var indicator = WIndicator.showIndicatorAddedTo(self.view, animation: true)
-        indicator.text = "swift比用法一多了一行文字"
+        indicator.title = "swift比用法一多了一行文字"
         dispatch_async(dispatch_get_global_queue(0,0), { () -> Void in
            sleep(3)
     
