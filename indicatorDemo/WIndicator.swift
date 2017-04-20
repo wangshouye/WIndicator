@@ -10,7 +10,7 @@ import UIKit
 
 class WIndicator:UIView {
     
-    class func showIndicatorAddedTo(view:UIView, animation:Bool) -> WActivityIndicator {
+    class func showIndicatorAddedTo(_ view:UIView, animation:Bool) -> WActivityIndicator {
         
         if let tmpView = view.viewWithTag(TagWIndicatorText) {
             
@@ -24,12 +24,12 @@ class WIndicator:UIView {
         let resultView = WActivityIndicator(view: view)
         view.addSubview(resultView)
         
-        resultView.show(animation)
+        resultView.show(animation: animation)
         
         return resultView
     }
     
-    class func removeIndicatorFrom(view:UIView, animation:Bool) {
+    class func removeIndicatorFrom(_ view:UIView, animation:Bool) {
         
         var indicatorView: WActivityIndicator?
         
@@ -41,12 +41,12 @@ class WIndicator:UIView {
         }
         
         if let view = indicatorView {
-            view.hideAndRemove(true)
+            view.hideAndRemove(animation: true)
             view.removeFromSuperview()
         }
     }
     
-    class func showMsgInView(view: UIView, text:String, timeOut interval:NSTimeInterval) -> WIndicatorText {
+    class func showMsgInView(_ view: UIView, text:String, timeOut interval:TimeInterval) -> WIndicatorText {
         
         if let tmpView = view.viewWithTag(TagWIndicatorText) {
             
